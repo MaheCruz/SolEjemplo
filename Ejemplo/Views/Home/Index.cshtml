@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Monitor de Temperatura y Ventilador</title>
+    <style type="text/css">
+        /* Estilo principal del contenedor */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        /* Títulos principales */
+        h1 {
+            font-size: 32px;
+            color: #3DA35D;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #666;
+            margin: 20px 0 10px;
+        }
+
+        .temperature-value, .fan-status {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .refresh-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            .refresh-button:hover {
+                background-color: #0056b3;
+            }
+
+        /* Eliminar fondo blanco del encabezado y barra de navegación */
+        header, nav {
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .navbar {
+            background-color: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+        }
+
+        .navbar-brand {
+            font-size: 18px;
+            color: #3DA35D !important;
+        }
+
+        /* Ajustar márgenes para eliminar espacios extra */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .navbar-nav a {
+            color: #3DA35D !important;
+        }
+    </style>
+    <script type="text/javascript">
+        // Actualización automática cada 30 segundos (30000 ms)
+        setInterval(function () {
+            window.location.reload();
+        }, 30000);
+
+        // Función para actualización manual
+        function actualizarPagina() {
+            window.location.reload();
+        }
+    </script>
+</head>
+<body>
+
+    <form id="form1" runat="server">
+        <div class="container">
+            <h1>Monitor de Temperatura y Ventilador</h1>
+
+            <!-- Mostrar error si existe un mensaje de error en ViewBag -->
+            @if (ViewBag.Error != null)
+            {
+                <div class="error-message">
+                    @ViewBag.Error
+                </div>
+            }
+
+            <!-- Mostrar la temperatura y el estado del ventilador -->
+            @if (ViewBag.Temperatura != null && ViewBag.EstadoVentilador != null)
+            {
+                <div class="temperature-container">
+                    <h2>Temperatura Ambiental</h2>
+                    <div class="temperature-value">
+                        @ViewBag.Temperatura
+                    </div>
+                </div>
+
+                <div class="fan-status-container">
+                    <h2>Estado del Ventilador</h2>
+                    <div class="fan-status">
+                        @ViewBag.EstadoVentilador
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="error-message">
+                    No hay datos disponibles para mostrar.
+                </div>
+            }
+            <!-- Solo mostrar, para ver error en el codigo
+            <div class="diagnostic">
+                <h3>Vista Debug</h3>
+                <p>Temperatura: @ViewBag.Temperatura</p>
+                <p>Estado Ventilador: @ViewBag.EstadoVentilador</p>
+                <p>Error: @ViewBag.Error</p>
+            </div> -->
+
+            <!-- Botón para actualización manual -->
+            <button type="button" onclick="actualizarPagina()" class="refresh-button">Actualizar Datos</button>
+        </div>
+    </form>
+</body>
+</html>
+
